@@ -3768,7 +3768,7 @@ eval("var g;\r\n\r\n// This works in non-strict mode\r\ng = (function() {\r\n\tr
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar p = 5;\nconsole.log(\"I have \" + p + \" candies\");\n\n//# sourceURL=webpack:///./src/js/index.js?");
+eval("\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ }),
 
