@@ -28,6 +28,8 @@ const recipeController = async () => {
   if (recipe_id) {
     //create new recipe object
     state.recipe = new Recipe(recipe_id);
+    //highlight the selected item in the search list
+    if (state.search) searchView.highlightSelected(recipe_id);
     //show a loading spinner in the UI
     spinner(elements.recipeDisplay);
     try {
