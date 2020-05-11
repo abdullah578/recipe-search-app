@@ -35,6 +35,7 @@ const recipeController = async () => {
       //calculate cooking time
       state.recipe.calcCookingTime();
       //display the recipe in the UI
+      state.recipe.parseIngredients();
       console.log(state.recipe);
     } catch (ex) {
       alert(ex);
