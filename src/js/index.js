@@ -2,6 +2,7 @@ import Search from "./models/Search";
 import Recipe from "./models/Recipe";
 import { elements, spinner } from "./views/base";
 import * as searchView from "./views/searchView";
+import * as recipeView from "./views/recipeView";
 const state = {};
 const searchController = async () => {
   //get the search data from UI
@@ -36,7 +37,9 @@ const recipeController = async () => {
       state.recipe.calcCookingTime();
       //display the recipe in the UI
       state.recipe.parseIngredients();
+      recipeView.removeResults();
       console.log(state.recipe);
+      recipeView.displayResults(state.recipe);
     } catch (ex) {
       alert(ex);
     }

@@ -33,7 +33,18 @@ class Recipe {
       "cups",
       "pounds",
     ];
-    const units = ["tbsp", "tbsp", "tsp", "tsp", "oz", "oz", "cup", "pound"];
+    const units = [
+      "tbsp",
+      "tbsp",
+      "tsp",
+      "tsp",
+      "oz",
+      "oz",
+      "cup",
+      "pound",
+      "kg",
+      "g",
+    ];
     this.ingredients = this.ingredients.map((curr) => {
       //convert string to lower case and remove all parentheses
       curr = curr.toLowerCase();
@@ -52,7 +63,7 @@ class Recipe {
           ingObj = {
             count: eval(ingArray[0].replace("-", "+")),
             unit: ingArray[1],
-            ingredient: ingArray.slice(1).join(" "),
+            ingredient: ingArray.slice(2).join(" "),
           };
         } else {
           ingObj = {
