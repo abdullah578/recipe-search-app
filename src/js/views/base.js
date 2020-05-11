@@ -3,6 +3,7 @@ export const elements = {
   searchInput: document.querySelector(".search__field"),
   resultList: document.querySelector(".results__list"),
   paginationButtons: document.querySelector(".results__pages"),
+  recipeDisplay: document.querySelector(".recipe"),
 };
 
 export const spinner = (parent) => {
