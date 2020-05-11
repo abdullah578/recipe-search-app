@@ -1,5 +1,5 @@
 import Search from "./models/Search";
-import { elements } from "./views/base";
+import { elements, spinner } from "./views/base";
 import * as searchView from "./views/searchView";
 const state = {};
 const searchController = async () => {
@@ -8,11 +8,14 @@ const searchController = async () => {
   if (query) {
     //create new search object and add it to the state
     state.search = new Search(query);
-    // show a loading spinner in the UI
-
+    // clear input and diasplay results and show a loading spinner in the UI
+    searchView.removeInput();
+    searchView.removeResults();
+    spinner(elements.resultList);
     //get recipes for the search query
     await state.search.getSearchResults();
-    //render search results in UI
+    //clear the spinner and render search results in UI
+    searchView.removeResults();
     searchView.displayResults(state.search.recipes);
   }
 };
@@ -20,4 +23,10 @@ const searchController = async () => {
 elements.searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   searchController();
+});
+elements.paginationButtons.addEventListener("click", (e) => {
+  const closestButton = e.target.closest(".btn-inline");
+  const goToPage = parseInt(closestButton.dataset.goto);
+  searchView.removeResults();
+  searchView.displayResults(state.search.recipes, goToPage);
 });
