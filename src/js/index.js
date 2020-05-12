@@ -61,3 +61,14 @@ elements.paginationButtons.addEventListener("click", (e) => {
 ["hashchange", "load"].forEach((event) => {
   window.addEventListener(event, recipeController);
 });
+elements.recipeDisplay.addEventListener("click", (e) => {
+  if (e.target.matches(".btn-decrease,.btn-decrease *")) {
+    if (state.recipe.servings > 1) {
+      state.recipe.updateServings("-");
+      recipeView.displayUpdatedServings(state.recipe);
+    }
+  } else if (e.target.matches(".btn-increase,.btn-increase *")) {
+    state.recipe.updateServings("+");
+    recipeView.displayUpdatedServings(state.recipe);
+  }
+});

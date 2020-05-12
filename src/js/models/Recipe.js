@@ -22,6 +22,13 @@ class Recipe {
   calcCookingTime() {
     this.cookingTime = Math.ceil(this.ingredients.length / 3) * 50;
   }
+  updateServings(type) {
+    const newServings = type === "+" ? this.servings + 1 : this.servings - 1;
+    this.ingredients.forEach((obj) => {
+      obj.count *= newServings / this.servings;
+    });
+    this.servings = newServings;
+  }
   parseIngredients() {
     const longUnits = [
       "tablespoons",

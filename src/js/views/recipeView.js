@@ -44,12 +44,12 @@ export const displayResults = (recipeObj) => {
         }</span>
         <span class="recipe__info-text"> servings</span>
         <div class="recipe__info-buttons">
-            <button class="btn-tiny">
+            <button class="btn-tiny btn-decrease">
                 <svg>
                     <use href="img/icons.svg#icon-circle-with-minus"></use>
                 </svg>
             </button>
-            <button class="btn-tiny">
+            <button class="btn-tiny btn-increase" >
                 <svg>
                     <use href="img/icons.svg#icon-circle-with-plus"></use>
                 </svg>
@@ -108,4 +108,16 @@ export const displayResults = (recipeObj) => {
 
 export const removeResults = () => {
   elements.recipeDisplay.innerHTML = "";
+};
+
+export const displayUpdatedServings = (recipeObj) => {
+  //update servings
+  document.querySelector(".recipe__info-data--people").textContent =
+    recipeObj.servings;
+  //update ingrdients
+  Array.from(document.querySelectorAll(".recipe__count")).forEach(
+    (elem, index) => {
+      elem.textContent = convertToFraction(recipeObj.ingredients[index].count);
+    }
+  );
 };
