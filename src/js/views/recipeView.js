@@ -3,6 +3,7 @@ import { Fraction } from "fractional";
 
 const convertToFraction = (num) => {
   if (!num) return "?";
+  num = Math.round(num * 10000) / 10000;
   const [int, dec] = num
     .toString()
     .split(".")
