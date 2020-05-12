@@ -1,6 +1,7 @@
 import Search from "./models/Search";
 import Recipe from "./models/Recipe";
 import Shopping from "./models/Shopping";
+import Likes from "./models/Likes";
 import { elements, spinner } from "./views/base";
 import * as searchView from "./views/searchView";
 import * as recipeView from "./views/recipeView";
@@ -62,6 +63,30 @@ const shoppingController = () => {
     shoppingView.displayResults(item);
   });
 };
+const likesController = () => {
+  //create a new like object if empty
+  if (!state.likes) state.likes = new Likes();
+  const { recipe_id, publisher, image, title } = state.recipe;
+  //if the item is not liked...
+  if (!state.likes.isLiked(recipe_id)) {
+    //add item to likes list
+    state.likes.addItem(recipe_id, title, publisher, image);
+    // show a filled heart
+
+    //display the liked item in the UI
+    console.log(state.likes);
+  }
+  //if the item is liked...
+  else {
+    //remove item from the likes list
+    state.likes.deleteItem(recipe_id);
+
+    //show a empty heart
+
+    //remove item from UI
+    console.log(state.likes);
+  }
+};
 
 elements.searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -87,6 +112,8 @@ elements.recipeDisplay.addEventListener("click", (e) => {
     recipeView.displayUpdatedServings(state.recipe);
   } else if (e.target.matches(".recipe__btn--shop,.recipe__btn--shop *")) {
     shoppingController();
+  } else if (e.target.matches(".recipe__love,.recipe__love *")) {
+    likesController();
   }
 });
 elements.shoppingList.addEventListener("click", (e) => {
