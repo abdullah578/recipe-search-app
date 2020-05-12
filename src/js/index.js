@@ -1,9 +1,12 @@
 import Search from "./models/Search";
 import Recipe from "./models/Recipe";
+import Shopping from "./models/Shopping";
 import { elements, spinner } from "./views/base";
 import * as searchView from "./views/searchView";
 import * as recipeView from "./views/recipeView";
+import * as shoppingView from "./views/shoppingView";
 const state = {};
+window.state = state;
 const searchController = async () => {
   //get the search data from UI
   const query = searchView.getInput();
@@ -40,12 +43,24 @@ const recipeController = async () => {
       //display the recipe in the UI
       state.recipe.parseIngredients();
       recipeView.removeResults();
-      console.log(state.recipe);
       recipeView.displayResults(state.recipe);
     } catch (ex) {
       alert(ex);
     }
   }
+};
+const shoppingController = () => {
+  //create new shopping list if empty
+  if (!state.shoppingList) state.shoppingList = new Shopping();
+  //add ingredient items to shopping list and display in UI
+  state.recipe.ingredients.forEach((curr) => {
+    const item = state.shoppingList.addItem(
+      curr.count,
+      curr.unit,
+      curr.ingredient
+    );
+    shoppingView.displayResults(item);
+  });
 };
 
 elements.searchForm.addEventListener("submit", (e) => {
@@ -70,5 +85,17 @@ elements.recipeDisplay.addEventListener("click", (e) => {
   } else if (e.target.matches(".btn-increase,.btn-increase *")) {
     state.recipe.updateServings("+");
     recipeView.displayUpdatedServings(state.recipe);
+  } else if (e.target.matches(".recipe__btn--shop,.recipe__btn--shop *")) {
+    shoppingController();
+  }
+});
+elements.shoppingList.addEventListener("click", (e) => {
+  const id = e.target.closest(".shopping__item").dataset.id;
+  if (e.target.matches(".shopping__delete,.shopping__delete *")) {
+    state.shoppingList.deleteItem(id);
+    shoppingView.deleteItem(id);
+  } else if (e.target.matches(".shopping__item--value")) {
+    const count = parseInt(e.target.value);
+    state.shoppingList.updateItems(count, id);
   }
 });

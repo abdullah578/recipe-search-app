@@ -80,7 +80,7 @@ export const displayResults = (recipeObj) => {
       )
       .join("")}
     </ul>
-    <button class="btn-small recipe__btn">
+    <button class="btn-small recipe__btn recipe__btn--shop">
         <svg class="search__icon">
             <use href="img/icons.svg#icon-shopping-cart"></use>
         </svg>

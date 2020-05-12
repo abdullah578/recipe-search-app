@@ -4,12 +4,14 @@ class Shopping {
     this.items = [];
   }
   addItem(count, unit, ingredient) {
-    this.items.push({
+    const item = {
       count,
       unit,
       ingredient,
-      id: new uniqid(),
-    });
+      id: uniqid(),
+    };
+    this.items.push(item);
+    return item;
   }
   deleteItem(id) {
     this.items = this.items.filter((el) => el.id !== id);
@@ -18,3 +20,4 @@ class Shopping {
     this.items.find((el) => el.id === id).count = count;
   }
 }
+export default Shopping;
