@@ -1,4 +1,5 @@
-import { elements } from "./base";
+import { elements, formatTitle } from "./base";
+
 export const getInput = () => {
   const query = elements.searchInput.value;
   return query;
@@ -20,16 +21,7 @@ const renderRecipe = (recipe) => {
     `;
   elements.resultList.insertAdjacentHTML("beforeend", displayHTML);
 };
-const formatTitle = (title, limit = 17) => {
-  const titleArray = title.split(" ");
-  const newTitle = [];
-  let acc = 0;
-  titleArray.forEach((elem) => {
-    acc += elem.length;
-    if (acc <= limit) newTitle.push(elem);
-  });
-  return `${newTitle.join(" ")}...`;
-};
+
 const buttonHTML = (page, type) =>
   `
 <button class="btn-inline results__btn--${type}" data-goto=${
@@ -79,6 +71,6 @@ export const highlightSelected = (id) => {
     elem.classList.remove("results__link--active");
   });
   document
-    .querySelector(`a[href="#${id}"]`)
+    .querySelector(`.results__link[href="#${id}"]`)
     .classList.add("results__link--active");
 };

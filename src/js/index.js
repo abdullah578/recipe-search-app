@@ -6,6 +6,7 @@ import { elements, spinner } from "./views/base";
 import * as searchView from "./views/searchView";
 import * as recipeView from "./views/recipeView";
 import * as shoppingView from "./views/shoppingView";
+import * as likesView from "./views/likesView";
 const state = {};
 window.state = state;
 const searchController = async () => {
@@ -44,7 +45,7 @@ const recipeController = async () => {
       //display the recipe in the UI
       state.recipe.parseIngredients();
       recipeView.removeResults();
-      recipeView.displayResults(state.recipe);
+      recipeView.displayResults(state.recipe, state.likes.isLiked(recipe_id));
     } catch (ex) {
       alert(ex);
     }
@@ -70,11 +71,13 @@ const likesController = () => {
   //if the item is not liked...
   if (!state.likes.isLiked(recipe_id)) {
     //add item to likes list
-    state.likes.addItem(recipe_id, title, publisher, image);
+    const newItem = state.likes.addItem(recipe_id, title, publisher, image);
     // show a filled heart
-
+    likesView.toggleLike(true);
     //display the liked item in the UI
-    console.log(state.likes);
+    likesView.addItem(newItem);
+    //store item in local storage
+    state.likes.storeData();
   }
   //if the item is liked...
   else {
@@ -82,10 +85,13 @@ const likesController = () => {
     state.likes.deleteItem(recipe_id);
 
     //show a empty heart
-
+    likesView.toggleLike(false);
     //remove item from UI
-    console.log(state.likes);
+    likesView.removeItem(recipe_id);
+    //remove item from local storage
+    state.likes.storeData();
   }
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
 
 elements.searchForm.addEventListener("submit", (e) => {
@@ -125,4 +131,13 @@ elements.shoppingList.addEventListener("click", (e) => {
     const count = parseInt(e.target.value);
     state.shoppingList.updateItems(count, id);
   }
+});
+window.addEventListener("load", () => {
+  state.likes = new Likes();
+  state.likes.getData();
+  console.log(state.likes);
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
+  state.likes.likes.forEach((el) => {
+    likesView.addItem(el);
+  });
 });

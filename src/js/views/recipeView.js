@@ -17,7 +17,7 @@ const convertToFraction = (num) => {
     return `${int} ${fr.numerator}/${fr.denominator}`;
   }
 };
-export const displayResults = (recipeObj) => {
+export const displayResults = (recipeObj, isLiked) => {
   const displayHTML = `
     <figure class="recipe__fig">
     <img src="${recipeObj.image}" alt="Tomato" class="recipe__img">
@@ -58,7 +58,9 @@ export const displayResults = (recipeObj) => {
     </div>
     <button class="recipe__love">
         <svg class="header__likes">
-            <use href="img/icons.svg#icon-heart-outlined"></use>
+            <use href="img/icons.svg#icon-heart${
+              isLiked ? "" : "-outlined"
+            }"></use>
         </svg>
     </button>
 </div>

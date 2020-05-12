@@ -13,6 +13,16 @@ class Likes {
   isLiked(id) {
     return this.likes.find((el) => el.id === id);
   }
+  getNumLikes() {
+    return this.likes.length;
+  }
+  storeData() {
+    localStorage.setItem("likes", JSON.stringify(this.likes));
+  }
+  getData() {
+    const item = JSON.parse(localStorage.getItem("likes"));
+    if (item) this.likes = item;
+  }
 }
 
 export default Likes;
