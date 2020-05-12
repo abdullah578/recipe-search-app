@@ -4,6 +4,7 @@ export const elements = {
   resultList: document.querySelector(".results__list"),
   paginationButtons: document.querySelector(".results__pages"),
   recipeDisplay: document.querySelector(".recipe"),
+  shoppingList: document.querySelector(".shopping__list"),
 };
 
 export const spinner = (parent) => {
