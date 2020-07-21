@@ -1,4 +1,4 @@
-# Budgety
+# Forkify
 
 Forkify is a web application built using HTML5 CSS3 and ES6 that allows users to find recipes for their favorite dishes. Users can add recipe ingredients to their shopping cart and can save their favorite recipes.
 
